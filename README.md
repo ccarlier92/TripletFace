@@ -13,7 +13,7 @@ going to be maintained in any sort.
 ### Import du projet existant
 1. Fork du project via `github`
 
-![fork](./fork.png)
+![fork](https://raw.githubusercontent.com/ccarlier92/castle/master/fork.png)
 
 2. Connexion Google Drive - Google Colab
 ```sh
