@@ -8,69 +8,60 @@ going to be maintained in any sort.
 
 ![TSNE_Latent](TSNE_Latent.png)
 
-## Architecture
+## Tâches réalisées
 
-The proposed architecture is pretty simple and does not implement state of the
-art performances. The chosen architecture is a fine tuning example of the
-resnet18 CNN model. The model includes the freezed CNN part of resnet, and its
-FC part has been replaced to be trained to output latent variables for the
-facial image input.
+### Import du projet existant
+1. Fork du project via `github`
 
-The dataset needs to be formatted in the following form:
+![fork](./fork.png)
+
+2. Connexion Google Drive - Google Colab
+```sh
+❯ from google.colab import drive
+❯ drive.mount('/content/drive')
 ```
-dataset/
-| test/
-| | 0/
-| | | 00563.png
-| | | 01567.png
-| | | ...
-| | 1/
-| | | 00011.png
-| | | 00153.png
-| | | ...
-| | ...
-| train/
-| | 0/
-| | | 00001.png
-| | | 00002.png
-| | | ...
-| | 1/
-| | | 00001.png
-| | | 00002.png
-| | | ...
-| | ...
-| labels.csv        # id;label
+3. Clone du projet forké `https://github.com/ccarlier92/TripletFace.git`
+```sh
+❯ !git clone https://github.com/ccarlier92/TripletFace.git
 ```
-
-## Install
-
-Install all dependencies ( pip command may need sudo ):
-```bash
-cd TripletFace/
-pip3 install -r requirements.txt
+4. Dézippage du dataset 
+```sh
+❯ !unzip -F /content/drive/My\ Drive/Copie\ de\ dataset.zip
 ```
+### Entraînement du modèle avec hyperparamètres modifiés
 
-## Usage
-
-For training:
-```bash
-usage: train.py [-h] -s DATASET_PATH -m MODEL_PATH [-i INPUT_SIZE]
-                [-z LATENT_SIZE] [-b BATCH_SIZE] [-e EPOCHS]
-                [-l LEARNING_RATE] [-w N_WORKERS] [-r N_SAMPLES]
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -s DATASET_PATH, --dataset_path DATASET_PATH
-  -m MODEL_PATH, --model_path MODEL_PATH
-  -i INPUT_SIZE, --input_size INPUT_SIZE
-  -z LATENT_SIZE, --latent_size LATENT_SIZE
-  -b BATCH_SIZE, --batch_size BATCH_SIZE
-  -e EPOCHS, --epochs EPOCHS
-  -l LEARNING_RATE, --learning_rate LEARNING_RATE
-  -w N_WORKERS, --n_workers N_WORKERS
-  -r N_SAMPLES, --n_samples N_SAMPLES
+1.  Installation des librairies nécessaires
+```sh
+❯ !pip3 install -r /content/TripletFace/requirements.txt
 ```
+2. Entrainement du modèle avec modification des hyper paramètres
+```sh
+❯ %cd TripletFace
+❯ !python3 -m tripletface.train -m model -s ../dataset/ -e 5 -b 64 -i 240
+```
+--> Nombre d'epoch réduit à 5 car c'est suffisant et ça réduit le temps d'entraînement de manière significative
+--> Augmentation du batch size à 64 (32 par défaut) offrant une visualisation plus propre
+--> Augmentation de l'input size à 240 (224 par défaut) offrant également une visualisation plus propre, mais allongeant considérablement le temps d'entraînement. Je n'ai donc pas cherché à monter plus haut.
 
+En sortie, on obtient les visualisations des 5 epoch (format PNG) ainsi que le fichier model.pt. Tout cela est disponible dans le dossier TripletFace/model
+
+### Jit Compile
+1. Déplacement des dossiers vers le drive pour enregistrement futur
+```sh
+❯ !mv /content/TripletFace /content/drive/My\ Drive/IA4IOT
+```
+2. Compilation du réseau pour réutilisation plus rapide par la suite
+```sh
+❯ %cd /content/drive/My Drive/IA4IOT/TripletFace
+❯ import torch
+❯ from tripletface.core.model import Encoder
+❯ model = Encoder(64)
+❯ weigths = torch.load( "/model/model.pt" )['model']
+❯ model.load_state_dict( weigths )
+❯ jit_model = torch.jit.trace( model,torch.rand(3, 3, 3, 3) )
+❯ torch.jit.save( jit_model, "jitcompile.pt" )
+❯ %cd ..
+```
 ## References
 
 * Resnet Paper: [Arxiv](https://arxiv.org/pdf/1512.03385.pdf)
