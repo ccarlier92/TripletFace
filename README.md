@@ -39,11 +39,11 @@ going to be maintained in any sort.
 ❯ %cd TripletFace
 ❯ !python3 -m tripletface.train -m model -s ../dataset/ -e 5 -b 64 -i 240
 ```
---> Nombre d'epoch réduit à 5 car c'est suffisant et ça réduit le temps d'entraînement de manière significative
---> Augmentation du batch size à 64 (32 par défaut) offrant une visualisation plus propre
---> Augmentation de l'input size à 240 (224 par défaut) offrant également une visualisation plus propre, mais allongeant considérablement le temps d'entraînement. Je n'ai donc pas cherché à monter plus haut.
+- Nombre d'epoch réduit à 5 car c'est suffisant et ça réduit le temps d'entraînement de manière significative
+- Augmentation du batch size à 64 (32 par défaut) offrant une visualisation plus propre
+- Augmentation de l'input size à 240 (224 par défaut) offrant également une visualisation plus propre, mais allongeant considérablement le temps d'entraînement. Je n'ai donc pas cherché à monter plus haut.
 
-En sortie, on obtient les visualisations des 5 epoch (format PNG) ainsi que le fichier model.pt. Tout cela est disponible dans le dossier TripletFace/model
+ :point_right: En sortie, on obtient les visualisations des 5 epoch (format PNG) ainsi que le fichier model.pt. Tout cela est disponible dans le dossier TripletFace/model
 
 ### Jit Compile
 1. Déplacement des dossiers vers le drive pour enregistrement futur
