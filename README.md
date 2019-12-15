@@ -44,6 +44,8 @@ going to be maintained in any sort.
 - Augmentation de l'input size à 240 (224 par défaut) offrant également une visualisation plus propre, mais allongeant considérablement le temps d'entraînement. Je n'ai donc pas cherché à monter plus haut.
 
  :point_right: En sortie, on obtient les visualisations des 5 epoch (format PNG) ainsi que le fichier model.pt. Tout cela est disponible dans le dossier TripletFace/model
+ 
+ ![TSNE_Latent](https://raw.githubusercontent.com/ccarlier92/TripletFace/master/model/vizualisation_0.png)
 
 ### Jit Compile
 1. Déplacement des dossiers vers le drive pour enregistrement futur
@@ -73,11 +75,11 @@ going to be maintained in any sort.
 **Deadline Decembre 13th 2019 at 12pm**
 
 The students are asked to complete the following tasks:
-* Fork the Project
-* Improve the model by playing with Hyperparameters and by changing the Architecture ( may not use resnet )
-* JIT compile the model ( see [Documentation](https://pytorch.org/docs/stable/jit.html#torch.jit.trace) )
-* Add script to generate Centroids and Thesholds using few face images from one person
-* Generate those for each of the student included in the dataset
-* Add inference script in order to use the final model
-* Change README.md in order to include the student choices explained and a table containing the Centroids and Thesholds for each student of the dataset with a vizualisation ( See the one above )
-* Send the github link by mail
+- [x] Fork the Project
+- [x] Improve the model by playing with Hyperparameters and by changing the Architecture ( may not use resnet )
+- [x] JIT compile the model ( see [Documentation](https://pytorch.org/docs/stable/jit.html#torch.jit.trace) )
+- [ ] Add script to generate Centroids and Thesholds using few face images from one person
+- [ ] Generate those for each of the student included in the dataset
+- [ ] Add inference script in order to use the final model
+- [x] Change README.md in order to include the student choices explained and a table containing the Centroids and Thesholds for each student of the dataset with a vizualisation ( See the one above )
+- [x] Send the github link by mail
